@@ -63,11 +63,11 @@ Create a new file at `modules/NavLink.js` that looks like this:
 import React from 'react';
 import { Link } from 'react-router';
 
-export default extends React.Component {
+export default class NavLink extends React.Component {
   render() {
-    return <Link {...this.props} activeClassName="active"/>
+    return <Link {...this.props} activeClassName="active"/>;
   }
-})
+}
 ```
 
 Now you can go change your links to `NavLink`s.

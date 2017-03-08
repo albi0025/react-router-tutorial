@@ -1,4 +1,4 @@
-# Navigating Programatically
+# Navigating Programmatically
 
 While most navigation happens with `Link`, you can programmatically
 navigate around an application in response to form submissions, button
@@ -8,19 +8,25 @@ Let's make a little form in `Repos` that programmatically navigates.
 
 ```js
 // modules/Repos.js
-import React from 'react'
-import NavLink from './NavLink'
+import React from 'react';
+import NavLink from './NavLink';
 
-export default React.createClass({
+class Repos extends React.Component{
 
-  // add this method
+  // add this method and handleSubmit below
+  constructor() {
+    super();
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  // add this method too
   handleSubmit(event) {
-    event.preventDefault()
-    const userName = event.target.elements[0].value
-    const repo = event.target.elements[1].value
-    const path = `/repos/${userName}/${repo}`
-    console.log(path)
-  },
+    event.preventDefault();
+    const userName = event.target.elements[0].value;
+    const repo = event.target.elements[1].value;
+    const path = `/repos/${userName}/${repo}`;
+    console.log(path);
+  }
 
   render() {
     return (
@@ -40,10 +46,13 @@ export default React.createClass({
         </ul>
         {this.props.children}
       </div>
-    )
+    );
   }
-})
+}
 ```
+
+View the page and test the form submission. We won't make any further changes
+to the code in this lesson, but we'll look at how navigate programmatically.
 
 There are two ways you can do this, the first is simpler than the
 second.
@@ -53,14 +62,14 @@ First we can use the `browserHistory` singleton that we passed into
 
 ```js
 // modules/Repos.js
-import { browserHistory } from 'react-router'
+import { browserHistory } from 'react-router';
 
 // ...
   handleSubmit(event) {
     // ...
-    const path = `/repos/${userName}/${repo}`
-    browserHistory.push(path)
-  },
+    const path = `/repos/${userName}/${repo}`;
+    browserHistory.push(path);
+  }
 // ...
 ```
 
@@ -74,22 +83,22 @@ You can also use the `router` that `Router` provides on "context".
 First, you ask for context in the component, and then you can use it:
 
 ```js
-export default React.createClass({
-
-  // ask for `router` from context
-  contextTypes: {
-    router: React.PropTypes.object
-  },
+class Router extends React.Component {
 
   // ...
 
   handleSubmit(event) {
     // ...
-    this.context.router.push(path)
-  },
+    this.context.router.push(path);
+  }
 
   // ..
-})
+}
+
+// ask for `router` from context
+Router.contextTypes = {
+  router: React.PropTypes.object
+}
 ```
 
 This way you'll be sure to be pushing to whatever history gets passed to

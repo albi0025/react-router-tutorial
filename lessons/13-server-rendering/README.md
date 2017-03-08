@@ -4,9 +4,9 @@ Alright, first things first. Server rendering, at its core is a simple
 concept in React.
 
 ```js
-render(<App/>, domNode)
+render(<App/>, domNode);
 // can be rendered on the server as
-const markup = renderToString(<App/>)
+const markup = renderToString(<App/>);
 ```
 
 It's not rocket science, but it also isn't trivial. First I'm going to
@@ -22,8 +22,8 @@ Make a new file called `webpack.server.config.js` and put this stuff in
 there:
 
 ```js
-var fs = require('fs')
-var path = require('path')
+var fs = require('fs');
+var path = require('path');
 
 module.exports = {
 
@@ -54,7 +54,7 @@ module.exports = {
     ]
   }
 
-}
+};
 ```
 
 Hopefully some of that makes sense, we aren't going to cover what all of
@@ -86,15 +86,15 @@ into it.
 
 ```js
 // modules/routes.js
-import React from 'react'
-import { Route, IndexRoute } from 'react-router'
-import App from './App'
-import About from './About'
-import Repos from './Repos'
-import Repo from './Repo'
-import Home from './Home'
+import React from 'react';
+import { Route, IndexRoute } from 'react-router';
+import App from './App';
+import About from './About';
+import Repos from './Repos';
+import Repo from './Repo';
+import Home from './Home';
 
-module.exports = (
+export default (
   <Route path="/" component={App}>
     <IndexRoute component={Home}/>
     <Route path="/repos" component={Repos}>
@@ -102,21 +102,21 @@ module.exports = (
     </Route>
     <Route path="/about" component={About}/>
   </Route>
-)
+);
 ```
 
 ```js
 // index.js
-import React from 'react'
-import { render } from 'react-dom'
-import { Router, browserHistory } from 'react-router'
+import React from 'react';
+import { render } from 'react-dom';
+import { Router, browserHistory } from 'react-router';
 // import routes and pass them into <Router/>
-import routes from './modules/routes'
+import routes from './modules/routes';
 
 render(
   <Router routes={routes} history={browserHistory}/>,
   document.getElementById('app')
-)
+);
 ```
 
 Now open up `server.js`. We're going to bring in two modules from React
@@ -138,12 +138,12 @@ we'll match the routes to the url, and finally render.
 ```js
 // ...
 // import some new stuff
-import React from 'react'
+import React from 'react';
 // we'll use this to render our app to an html string
-import { renderToString } from 'react-dom/server'
+import { renderToString } from 'react-dom/server';
 // and these to match the url to routes and then render
-import { match, RouterContext } from 'react-router'
-import routes from './modules/routes'
+import { match, RouterContext } from 'react-router';
+import routes from './modules/routes';
 
 // ...
 
@@ -156,12 +156,12 @@ app.get('*', (req, res) => {
     // `props` in its state as it listens to `browserHistory`. But on the
     // server our app is stateless, so we need to use `match` to
     // get these props before rendering.
-    const appHtml = renderToString(<RouterContext {...props}/>)
+    const appHtml = renderToString(<RouterContext {...props}/>);
 
     // dump the HTML into a template, lots of ways to do this, but none are
     // really influenced by React Router, so we're just using a little
     // function, `renderPage`
-    res.send(renderPage(appHtml))
+    res.send(renderPage(appHtml));
   })
 })
 
@@ -177,10 +177,10 @@ function renderPage(appHtml) {
    `
 }
 
-var PORT = process.env.PORT || 8080
+var PORT = process.env.PORT || 8080;
 app.listen(PORT, function() {
   console.log('Production Express server running at localhost:' + PORT)
-})
+});
 ```
 
 And that's it. Now if you run `NODE_ENV=production npm start` and visit
@@ -199,18 +199,18 @@ app.get('*', (req, res) => {
     // in here we can make some decisions all at once
     if (err) {
       // there was an error somewhere during route matching
-      res.status(500).send(err.message)
+      res.status(500).send(err.message);
     } else if (redirect) {
       // we haven't talked about `onEnter` hooks on routes, but before a
       // route is entered, it can redirect. Here we handle on the server.
-      res.redirect(redirect.pathname + redirect.search)
+      res.redirect(redirect.pathname + redirect.search);
     } else if (props) {
       // if we got props then we matched a route and can render
-      const appHtml = renderToString(<RouterContext {...props}/>)
-      res.send(renderPage(appHtml))
+      const appHtml = renderToString(<RouterContext {...props}/>);
+      res.send(renderPage(appHtml));
     } else {
       // no errors, no redirect, we just didn't match anything
-      res.status(404).send('Not Found')
+      res.status(404).send('Not Found');
     }
   })
 })

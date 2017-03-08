@@ -1,7 +1,7 @@
-import React from 'react'
-import NavLink from './NavLink'
+import React from 'react';
+import NavLink from './NavLink';
 
-export default React.createClass({
+class App extends React.Component {
   render() {
     return (
       <div>
@@ -13,6 +13,10 @@ export default React.createClass({
         </ul>
         {this.props.children}
       </div>
-    )
+    );
   }
-})
+}
+
+App.propTypes = {children: React.PropTypes.object};
+
+export default App;

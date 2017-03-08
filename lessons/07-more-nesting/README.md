@@ -41,7 +41,7 @@ class name to these links:
 ```js
 // modules/Repos.js
 // import it
-import NavLink from './NavLink'
+import NavLink from './NavLink';
 
 // ...
 <li><NavLink to="/repos/reactjs/react-router">React Router</NavLink></li>

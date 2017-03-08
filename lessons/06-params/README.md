@@ -26,9 +26,9 @@ First we need a component to render at the route, make a new file at
 
 ```js
 // modules/Repo.js
-import React from 'react'
+import React from 'react';
 
-export default React.createClass({
+export default class Repo extends React.Component {
   render() {
     return (
       <div>
@@ -36,7 +36,7 @@ export default React.createClass({
       </div>
     )
   }
-})
+}
 ```
 
 Now open up `index.js` and add the new route.
@@ -44,7 +44,7 @@ Now open up `index.js` and add the new route.
 ```js
 // ...
 // import Repo
-import Repo from './modules/Repo'
+import Repo from './modules/Repo';
 
 render((
   <Router history={hashHistory}>
@@ -55,16 +55,16 @@ render((
       <Route path="/about" component={About}/>
     </Route>
   </Router>
-), document.getElementById('app'))
+), document.getElementById('app'));
 ```
 
 Now we can add some links to this new route in `Repos.js`.
 
 ```js
 // Repos.js
-import { Link } from 'react-router'
+import { Link } from 'react-router';
 // ...
-export default React.createClass({
+export default class Repos extends React.Component {
   render() {
     return (
       <div>
@@ -77,9 +77,9 @@ export default React.createClass({
         </ul>
 
       </div>
-    )
+    );
   }
-})
+}
 ```
 
 Now go test your links out. Note that the parameter name in the route

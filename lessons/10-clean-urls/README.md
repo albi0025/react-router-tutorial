@@ -15,13 +15,13 @@ Open up `index.js` and import `browserHistory` instead of `hashHistory`.
 // index.js
 // ...
 // bring in `browserHistory` instead of `hashHistory`
-import { Router, Route, browserHistory, IndexRoute } from 'react-router'
+import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 
 render((
   <Router history={browserHistory}>
     {/* ... */}
   </Router>
-), document.getElementById('app'))
+), document.getElementById('app'));
 ```
 
 Now go click around and admire your clean URLs.

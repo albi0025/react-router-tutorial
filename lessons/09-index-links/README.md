@@ -27,7 +27,7 @@ First let's use the `IndexLink` instead of `NavLink`
 
 ```js
 // App.js
-import { IndexLink } from 'react-router'
+import { IndexLink } from 'react-router';
 
 // ...
 <li><IndexLink to="/" activeClassName="active">Home</IndexLink></li>

@@ -6,13 +6,13 @@ component and then talk about how to render it at `/`.
 
 ```js
 // modules/Home.js
-import React from 'react'
+import React from 'react';
 
-export default React.createClass({
+export default class Home extends React.Component {
   render() {
     return <div>Home</div>
   }
-})
+}
 ```
 
 One option is to see if we have any children in `App`, and if not,
@@ -20,7 +20,7 @@ render `Home`:
 
 ```js
 // modules/App.js
-import Home from './Home'
+import Home from './Home';
 
 // ...
 <div>
@@ -48,9 +48,9 @@ Let's add a new route to `index.js`.
 // index.js
 // new imports:
 // add `IndexRoute` to 'react-router' imports
-import { Router, Route, hashHistory, IndexRoute } from 'react-router'
+import { Router, Route, hashHistory, IndexRoute } from 'react-router';
 // and the Home component
-import Home from './modules/Home'
+import Home from './modules/Home';
 
 // ...
 
@@ -67,7 +67,7 @@ render((
       <Route path="/about" component={About}/>
     </Route>
   </Router>
-), document.getElementById('app'))
+), document.getElementById('app'));
 ```
 
 Now open [http://localhost:8080](http://localhost:8080) and you'll see the new component is

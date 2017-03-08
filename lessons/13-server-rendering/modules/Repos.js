@@ -1,18 +1,20 @@
-import React from 'react'
-import NavLink from './NavLink'
+import React from 'react';
+import NavLink from './NavLink';
 
-export default React.createClass({
-  contextTypes: {
-    router: React.PropTypes.object
-  },
+class Repos extends React.Component {
+
+  constructor() {
+    super();
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
   handleSubmit(event) {
-    event.preventDefault()
-    const userName = event.target.elements[0].value
-    const repo = event.target.elements[1].value
-    const path = `/repos/${userName}/${repo}`
-    this.context.router.push(path)
-  },
+    event.preventDefault();
+    const userName = event.target.elements[0].value;
+    const repo = event.target.elements[1].value;
+    const path = `/repos/${userName}/${repo}`;
+    this.context.router.push(path);
+  }
 
   render() {
     return (
@@ -31,6 +33,16 @@ export default React.createClass({
         </ul>
         {this.props.children}
       </div>
-    )
+    );
   }
-})
+}
+
+Repos.contextTypes = {
+  router: React.PropTypes.object
+};
+
+Repos.propTypes = {
+  children: React.PropTypes.object
+};
+
+export default Repos;

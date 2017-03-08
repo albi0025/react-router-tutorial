@@ -46,23 +46,23 @@ first attempt:
 
 ```js
 // server.js
-var express = require('express')
-var path = require('path')
+var express = require('express');
+var path = require('path');
 
-var app = express()
+var app = express();
 
 // serve our static stuff like index.css
-app.use(express.static(__dirname))
+app.use(express.static(__dirname));
 
 // send all requests to index.html so browserHistory in React Router works
 app.get('*', function (req, res) {
-  res.sendFile(path.join(__dirname, 'index.html'))
+  res.sendFile(path.join(__dirname, 'index.html'));
 })
 
 var PORT = process.env.PORT || 8080
 app.listen(PORT, function() {
-  console.log('Production Express server running at localhost:' + PORT)
-})
+  console.log('Production Express server running at localhost:' + PORT);
+});
 ```
 
 Now run:
@@ -88,12 +88,12 @@ assets:
 // server.js
 // ...
 // add path.join here
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'public')));
 
 // ...
 app.get('*', function (req, res) {
   // and drop 'public' in the middle of here
-  res.sendFile(path.join(__dirname, 'public', 'index.html'))
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 })
 ```
 
@@ -127,7 +127,7 @@ express.
 // webpack.config.js
 
 // make sure to import this
-var webpack = require('webpack')
+var webpack = require('webpack');
 
 module.exports = {
   // ...
@@ -141,7 +141,7 @@ module.exports = {
   ] : [],
 
   // ...
-}
+};
 ```
 
 And compression in express:
@@ -149,11 +149,11 @@ And compression in express:
 ```js
 // server.js
 // ...
-var compression = require('compression')
+var compression = require('compression');
 
-var app = express()
+var app = express();
 // must be first!
-app.use(compression())
+app.use(compression());
 ```
 
 Now go start your server in production mode:
